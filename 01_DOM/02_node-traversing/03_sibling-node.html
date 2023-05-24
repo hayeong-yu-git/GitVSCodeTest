@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>03_sibling node</title>
+</head>
+<body>
+
+    <h1>03. 형제 노드 탐색</h1>
+    <ol id="node">
+        <li>Node.prototype.previousSibling : 형제 노드 중 자신의 이전 형제 노드(요소 노드, 텍스트 노드)탐색하여 반환</li>
+        <li>Node.prototype.nextSibling : 형제 노드 중 자신의 다음 형제 노드(요소 노드, 텍스트 노드)탐색하여 반환</li>
+    </ol>
+
+    <script>
+        const $node = document.getElementById('node'); //텍스트,li,텍스트, li를 가진 ol태그
+        const firstChild = $node.firstChild; //텍스트
+        //const { firstChild } = $node; 이런식으로 비구조화 할당가능 (축약)
+        console.log(firstChild);
+
+        const nextSibling = firstChild.nextSibling; //li
+        console.log(nextSibling);
+        
+        const previousSibling = nextSibling.previousSibling; //텍스트
+        console.log(previousSibling);
+        
+    </script>
+
+    <ol id="element">
+        <li>Element.prototype.previousElementSibling : 형제 요소 노드 중 자신의 이전 형제 요소 노드를 탐색하여 반환</li>
+        <li>Element.prototype.nextElementSibling : 형제 요소 노드 중 자신의 다음 형제 요소 노드를 탐색하여 반환</li>
+    </ol>
+
+    <script>
+        //텍스트노드가 아닌 요소노드만 선택
+        const $element = document.getElementById('element'); //위와같음
+        const firstElementChild = $element.firstElementChild; //요소인 자식노드만을 찾음
+        console.log(firstElementChild);
+
+        const nextElementSibling = firstElementChild.nextElementSibling;
+        //const { nextElementSibling } = firstElementChild;
+        console.log(nextElementSibling);
+
+        const previousElementSibling = nextElementSibling.previousElementSibling;
+        console.log(previousElementSibling);
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>04_input event</title>
+    <style>
+        .lightgray { background: lightgray;}
+        .focused {outline : 3px dashed yellow;}
+    </style>
+</head>
+<body>
+    <pre>
+        사실상 사용하게 될 부분은 이것임 (04파일)!!!!!!!
+    </pre>
+
+    <h1>04. 사용자 입력 양식 이벤트</h1>
+
+    <form name="memberjoin">
+
+        <label for="username">이름</label>
+        <input type="text" name="username" id="username" value="홍길동">
+
+        <br><br>
+        
+        <label>성별</label>
+        <input type="radio" name="gender" id="male" value="m" checked><label for="male">남자</label>
+        <input type="radio" name="gender" id="female" value="f"><label for="female">여자</label>
+        
+        <br><br>
+
+        <label>나이</label>
+        <select id="age" name="age">
+            <option value="10">10대 이하</option>
+            <option value="20">20대</option>
+            <option value="30">30대</option>
+            <option value="40">40대</option>
+            <option value="50">50대</option>
+            <option value="60">60대 이상</option>
+        </select>
+
+        <br><br>
+
+        <label>자기소개</label>
+        <textarea name="introduce" id="introduce" rows="5" cols="30"
+        style="resize:none;">저를 소개합니다!</textarea>
+        <span>0</span>/5000자
+
+        <br><br>
+
+        <input type="submit" value="제출">
+    </form>
+
+
+    <h3>폼 요소 값 다루기</h3>
+    <pre>
+        input, textarea : input.value 또는 input.checked(checked 또는 radio)
+        select.options : option하위 요소들을 담고 있는 컬렉션
+        select.value : 현재 선택된 option값
+        select.selectedIndex : 현재 선택된 option의 번호(인덱스)
+    </pre>
+
+    <script>
+        //폼 취득(가져오기)
+        console.dir(document);
+        console.log(document.forms); //문서 내 모든 form들은 HTMLCollection타입으로 반환
+        console.log(document.forms[0]);
+        const $form = document.forms.memberjoin;
+
+        //요소 취득
+        // form내 사용자입력 양식을 HTMLFormContro;IsCollection 타입으로 반환
+        console.log($form.elements);
+        console.log($form.elements.username);
+
+        const $username = $form.username;
+        console.log($username);
+        console.log(`$form.username.value : ${$username.value}`);
+        $username.value = '유관순';
+
+        const $gender = $form.gender;
+        console.log($gender);
+        console.log(`$form.gender[1].checked : ${$gender[1].checked}`);
+        $gender[1].checked = true;
+
+    </script>
+    
+</body>
+
+</html>

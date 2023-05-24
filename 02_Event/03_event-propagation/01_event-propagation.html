@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>01_event propagation</title>
+
+    <style>
+        ul{background: lightgray;}
+        li{background: lightblue;}
+    </style>
+</head>
+<body>
+    <h1>01. 이벤트 전파</h1>
+    <pre>
+        ul(상위요소)에만 클릭이벤트를 걸었음(이벤트타깃은ul)->그다음 li(하위요소)클릭시 발생된 이벤트객체는 (이벤트타깃방향으로)ul로 올라감(버블링)
+
+        요점 : 의도하지 않은 버블링을 막아야하는 경우가 많을것
+
+        생성된 이벤트 객체는 이벤트를 발생시킨 DOM요소인 이벤트 타겟을 중심으로 DOM트리를 통해 전파된다
+        1: 캡처링 단계(capturing phase)가 일어났음을 의미 : 이벤트가 상위 요소에서 하위 요소 방향으로 전파 (위에서 아래로)
+        2: 타깃 단계(target phase)가 일어났음을 의미 : 이벤트가 이벤트 타깃에 도달
+        3: 버블링 단계(bubbling phase)가 일어났음을 의미(명시적으로 확인) : 이벤트가 하위 요소에서 상위 요소 방향으로 전파 (아래에서 위로 즉 역방향으로 올라감)
+    </pre>
+    
+    <ul id="drink">
+        <li>커피</li>
+        <li>콜라</li>
+        <li>우유</li>
+    </ul>
+
+    <script>
+        const $drink = document.getElementById("drink");
+        $drink.addEventListener('click', e => { //클릭된 요소(커피or콜라or우유)에 대한 정보들을 e에 집어넣음
+
+            //ul영역 클릭시-> 2: target단계에 해당(더 이상 올라갈게 없음)
+
+            //li영역 클릭시-> 3:버블링단계에 해당
+            console.log(e.eventPhase); //3
+            console.log(e.target); //li태그 (<-클릭한 요소를 가리킴)
+            console.log(e.currentTarget); //ul
+        })
+    </script>
+
+
+    <pre>
+        이벤트핸들러 어트리뷰트/프로퍼티 방식으로 등록한 이벤트핸들러는 타깃 단계와 버블링단계의 이벤트만 캐치할 수 있지만
+        add이벤트리스너 메서드 방식으로 등록한 이벤트핸들러는 3번째 인수로 true전달시 캡쳐링단계의 이벤트도 캐치할 수 있다
+
+        true->캡처링을 시킨다가 아니라 캡처링 일어난것을 잡는다(확인한다)(그걸 가지고 이벤트를 다룰수있기때문에...)
+    </pre>
+
+    <ul id="food">
+        <li>김치찌개</li>
+        <li>된장찌개</li>
+        <li>고등어구이</li>
+    </ul>
+
+    <script>
+        const $food = document.getElementById('food');
+
+        //캡쳐링 단계 캐치
+        $food.addEventListener('click', e => { //ul에 이벤트핸들러 걺
+            console.log(e.eventPhase);
+            console.log(e.target);
+            console.log(e.currentTarget);
+        }, true);
+
+        //버블링 단계 캐치
+        $food.addEventListener('click', e => {
+            console.log(e.eventPhase);
+            console.log(e.target);
+            console.log(e.currentTarget);
+        });
+
+        /*
+        ul영역 클릭시 타깃 둘다 캐치 
+        li영역 클릭시 1찍힘 : 캡쳐링(ul에 건 이벤트가 하위li로 내려왔다는것) 단계
+             => 3찍힘 : 버블링 단계(li에서 ul로 다시 올라감)까지 캐치됨을 확인 */
+    </script>
+</body>
+</html>

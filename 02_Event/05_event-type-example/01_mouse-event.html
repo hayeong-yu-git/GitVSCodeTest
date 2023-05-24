@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>01_mouse event</title>
+    <style>
+        .area {
+            border : 1px solid black;
+            background: lightgray;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>01. 마우스 이벤트</h1>
+    <h3>마우스 이벤트 종류</h3>
+
+    <ul>
+        <li>mousedown/moseup</li>
+        <li>mouseover/moseout</li>
+        <li>mousemove</li>
+        <li>click</li>
+        <li>contextmenu</li>
+    </ul>
+
+    <button>클릭하세요</button>
+    <div class="area"></div>
+    <script>
+        const $btn = document.querySelector('button');
+        const $area = document.querySelector('.area');
+        
+        //event.button
+        //0: 왼쪽, 1:가운데, 2:오른쪽
+        $btn.onmousedown = (e) => { //마우스를 눌렀을때
+            $area.insertAdjacentHTML('beforeend', 'mousedown button=' + e.button + "<br>");
+        }
+        
+        $btn.onmouseup = (e) => { //마우스를 누르고 띄었을때
+            $area.insertAdjacentHTML('beforeend', 'mouseup button=' + e.button + "<br>");
+        }
+        
+        $btn.onclick = (e) => { //마우스를 누르고 띄었을때
+            $area.insertAdjacentHTML('beforeend', 'click button=' + e.button + "<br>");
+        }
+        $btn.ondblclick = (e) => { //마우스를 누르고 띄었을때
+            $area.insertAdjacentHTML('beforeend', 'dblclick button=' + e.button + "<br>");
+        }
+
+        // $btn.onmouseover = (e) => { //마우스를 올렸을때
+        //     $area.insertAdjacentHTML('beforeend', 'mouseover button=' + e.button + "<br>");
+        // }
+
+        // $btn.onmouseout = (e) => { //마우스를 올렸다가 뗏을때
+        //     $area.insertAdjacentHTML('beforeend', 'mouseout button=' + e.button + "<br>");
+        // }
+
+        //여러분의 마우스 오른쪽 버튼을 눌렀을때 (우클릭 안되는 사이트들...)
+        $btn.ondblclick = (e) => { //마우스를 누르고 띄었을때
+            $area.insertAdjacentHTML('beforeend', 'contextmenu button=' + e.button + "<br>");
+        }
+
+        </script>
+</body>
+</html>
